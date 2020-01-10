@@ -1,0 +1,49 @@
+diff -up libksane-4.10.5/KSaneConfig.cmake.in.ksaneconfig libksane-4.10.5/KSaneConfig.cmake.in
+--- libksane-4.10.5/KSaneConfig.cmake.in.ksaneconfig	2013-06-28 12:36:54.799834900 -0500
++++ libksane-4.10.5/KSaneConfig.cmake.in	2013-07-13 09:20:21.827105668 -0500
+@@ -1,10 +1,36 @@
+-GET_FILENAME_COMPONENT(_IMPORT_PREFIX "${CMAKE_CURRENT_LIST_FILE}" PATH)
+-GET_FILENAME_COMPONENT(_IMPORT_PREFIX "${_IMPORT_PREFIX}" PATH)
+-GET_FILENAME_COMPONENT(_IMPORT_PREFIX "${_IMPORT_PREFIX}" PATH)
+-GET_FILENAME_COMPONENT(_IMPORT_PREFIX "${_IMPORT_PREFIX}" PATH)
+-
+-find_library(KSANE_LIBRARY NAMES ksane HINTS ${_IMPORT_PREFIX}/lib NO_DEFAULT_PATH)
+-find_path(KSANE_INCLUDE_DIR NAMES libksane/ksane.h HINTS ${_IMPORT_PREFIX}/include NO_DEFAULT_PATH)
+-SET(KSANE_LIBRARY "${KSANE_LIBRARY}" CACHE FILEPATH "KSane image scanning library")
+-SET(KSANE_INCLUDE_DIR "${KSANE_INCLUDE_DIR}" CACHE PATH "Include path for KSane library")
++# Config file for libksane. Do not modify this file. Any change will be overwritten by CMake.
++
++# This file will define the following variables:
++#
++# KSANE_LIB_DIR : The libksane library directory
++# KSANE_INCLUDE_DIR : The libksane include directory
++# KSANE_VERSION : The libksane version
++# KSANE_LIBRARY : The libkane library
++# KSANE_FOUND : 
++
++get_filename_component(_currentDir ${CMAKE_CURRENT_LIST_FILE} PATH) # The current directory
++get_filename_component(rootDir ${_currentDir}/@relInstallDir@ ABSOLUTE) # The install prefix
++
++# The nepomuk-core version
++set(KSANE_VERSION_MAJOR @KSANE_LIB_MAJOR_VERSION@)
++set(KSANE_VERSION_MINOR @KSANE_LIB_MINOR_VERSION@)
++set(KSANE_VERSION_PATCH @KSANE_LIB_PATCH_VERSION@)
++set(KSANE_VERSION ${KSANE_VERSION_MAJOR}.${KSANE_VERSION_MINOR}.${KSANE_VERSION_PATCH})
++
++# set the directories
++if(NOT KSANE_INSTALL_DIR)
++   set(KSANE_INSTALL_DIR "@CMAKE_INSTALL_PREFIX@")
++endif()
++
++# Library directory
++set(KSANE_LIB_DIR "@LIB_INSTALL_DIR@")
++
++# Include directory
++set(KSANE_INCLUDE_DIR "@INCLUDE_INSTALL_DIR@")
++set(KSANE_INCLUDE_DIRS "@INCLUDE_INSTALL_DIR@")
++
++# Set the libraries names
++set(KSANE_LIBRARY ksane)
++set(KSANE_LIBRARIES ksane)
++
+ SET(KSANE_FOUND TRUE)

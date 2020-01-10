@@ -1,7 +1,7 @@
 Name:    libksane
 Summary: SANE Library interface for KDE
 Version: 4.10.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: LGPLv2+
 URL:     https://projects.kde.org/projects/kde/kdegraphics/libs/libksane
@@ -12,6 +12,7 @@ URL:     https://projects.kde.org/projects/kde/kdegraphics/libs/libksane
 %global stable stable
 %endif
 Source0: http://download.kde.org/%{stable}/%{version}/src/%{name}-%{version}.tar.xz
+Patch1: libksane-4.10.5-cmake-config.patch
 
 BuildRequires: kdelibs4-devel >= %{version}
 BuildRequires: pkgconfig(sane-backends)
@@ -34,7 +35,7 @@ Requires: kdelibs4-devel
 
 %prep
 %setup -q
-
+%patch1 -p1 -b .cmakeconfig
 
 %build
 mkdir -p %{_target_platform}
@@ -84,6 +85,9 @@ fi
 
 
 %changelog
+* Wed May 04 2016 Than Ngo <than@edhat.com> 4.10.5-4
+- Resolves: bz#1285862, KSane.cmake is broken
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 4.10.5-3
 - Mass rebuild 2014-01-24
 
